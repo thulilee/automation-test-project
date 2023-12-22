@@ -1,0 +1,8 @@
+{
+  "name": "smgtest",
+  "version": "1.0.0",
+  "description": "SMG QC challenges",
+  "main": "index.js",
+  "author": "Linh Le <thuylinhletran101@gmail.com>",
+  "license": "MIT"
+}
