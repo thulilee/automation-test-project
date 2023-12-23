@@ -10,6 +10,6 @@
     "resolveJsonModule": true,
     "types": ["cypress", "newman"]
   },
-  "include": ["src/UI", "src/API/"],
+  "include": ["src/ui", "src/api"],
   "exclude": ["cypress.config.ts", "cypress", "node_modules"]
 }

@@ -5,6 +5,9 @@
   "main": "index.js",
   "author": "Linh Le <thuylinhletran101@gmail.com>",
   "license": "MIT",
+  "scripts": {
+    "test:api": "ts-node src/api/testExecution.ts"
+  },
   "devDependencies": {
     "@types/cypress": "^1.1.3",
     "@types/newman": "^5.3.6",
