@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "target": "es2016",
+    "module": "commonjs",
+    "strict": false,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "outDir": "./build",
+    "allowJs": true,
+    "resolveJsonModule": true,
+    "types": ["cypress", "newman"]
+  },
+  "include": ["src/UI", "src/API/"],
+  "exclude": ["cypress.config.ts", "cypress", "node_modules"]
+}
