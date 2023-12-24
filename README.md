@@ -1,28 +1,28 @@
 # Installation
 
-1 - Install NodeJS [link](https://nodejs.org/en/download)
-2 - Install Yarn [link](https://classic.yarnpkg.com/lang/en/docs/install/#windows-stable)
-3 - Install VSCode editor [link](https://code.visualstudio.com/download)
-4 - Install Git bash [link](https://git-scm.com/downloads) - [document](https://git-scm.com/docs)
-5 - Create a folder as your workspace -> open the folder -> right click -> select **Git Bash Here**
-6 - At the opened terminal, clone the project
+1 - Install NodeJS [link](https://nodejs.org/en/download)<br>
+2 - Install Yarn [link](https://classic.yarnpkg.com/lang/en/docs/install/#windows-stable)<br>
+3 - Install VSCode editor [link](https://code.visualstudio.com/download)<br>
+4 - Install Git bash [link](https://git-scm.com/downloads) - [document](https://git-scm.com/docs)<br>
+5 - Create a folder as your workspace -> open the folder -> right click -> select **Git Bash Here**<br>
+6 - At the opened terminal, clone the project<br>
 
 > git clone https://github.com/thulilee/automation-test-project.git
 
-7- Open VSCode editor -> File -> Open Folder... -> Select your workspace folder -> Select the cloned project name **automation-test-project**
-8 - In the editor, open integrated terminal (git bash mode) - [steps](https://code.visualstudio.com/docs/terminal/basics)
-9 - Execute below Yarn command to install the project
+7- Open VSCode editor -> File -> Open Folder... -> Select your workspace folder -> Select the cloned project name **automation-test-project**<br>
+8 - In the editor, open integrated terminal (git bash mode) - [steps](https://code.visualstudio.com/docs/terminal/basics)<br>
+9 - Execute below Yarn command to install the project<br>
 
 > yarn
 > OR
 > yarn install
 
-Will download then install all neccessary packages for the project.
+Will download then install all neccessary packages for the project.<br>
 
 # Code format on Save
 
 VS code settings
-Refer [the link](https://www.digitalocean.com/community/tutorials/how-to-format-code-with-prettier-in-visual-studio-code) for configuration
+Refer [the link](https://www.digitalocean.com/community/tutorials/how-to-format-code-with-prettier-in-visual-studio-code) for configuration<br>
 
 # Test execution
 
@@ -34,19 +34,20 @@ Refer [the link](https://www.digitalocean.com/community/tutorials/how-to-format-
 
 > yarn test:api
 
-Or for UI testing, to open the Cypress console for tests inspection - [steps](https://docs.cypress.io/guides/getting-started/opening-the-app)
+Or for UI testing, to open the Cypress console for tests inspection - [steps](https://docs.cypress.io/guides/getting-started/opening-the-app)<br>
 
 > yarn cypress open
 
+And for API testing, can use POSTMAN to open the collections for manual execution - [steps](https://learning.postman.com/docs/collections/running-collections/intro-to-collection-runs/)
 # Report
 
 ### UI testing
 
-Test executions status can be reviewed in the Cypress console
+Test executions status can be reviewed in the Cypress console<br>
 
 ### API testing
 
-Test status for each collection is generated under **newman** folder in the root. The HTML files can be viewed by installed browsers.
+Test status for each collection is generated under **newman** folder in the root. The HTML files can be viewed by installed browsers.<br>
 
 # Project structure
 
