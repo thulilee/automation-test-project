@@ -1,0 +1,202 @@
+{
+    "info": {
+        "_postman_id": "3fdde4b8-895b-48d3-bd5e-8df8c270497a",
+        "name": "Get-wikipedia-search-results-sroffset",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+        "_exporter_id": "16088962"
+    },
+    "item": [
+        {
+            "name": "get-result-list-sroffset",
+            "event": [
+                {
+                    "listen": "prerequest",
+                    "script": {
+                        "exec": [
+                            "let searchStr = data.searchStr\r",
+                            "\r",
+                            "if(searchStr.replace(/\\s/g, \"\").length > 0){\r",
+                            "    pm.collectionVariables.set(\"SEARCH_STR\", encodeURI(searchStr).replaceAll(\"%20\", \"+\"))\r",
+                            "} else {\r",
+                            "    pm.collectionVariables.set(\"SEARCH_STR\", encodeURI(searchStr))\r",
+                            "}\r",
+                            "\r",
+                            "pm.collectionVariables.set(\"OFFSET_VALUE\", data.offsetValue)\r",
+                            "console.log(\"-----\" + pm.collectionVariables.get(\"OFFSET_VALUE\"))\r",
+                            "pm.collectionVariables.set(\"LIMIT_VALUE\", data.limitValue)\r",
+                            "pm.collectionVariables.set(\"OFFSET_PARAM_N\", data.params.sroffset)\r",
+                            "pm.collectionVariables.set(\"SEARCH_PARAM_N\", data.params.srsearch)\r",
+                            "pm.collectionVariables.set(\"EXP\", data.exp)\r",
+                            "pm.collectionVariables.set(\"DESC\", data.desc)"
+                        ],
+                        "type": "text/javascript"
+                    }
+                },
+                {
+                    "listen": "test",
+                    "script": {
+                        "exec": [
+                            "const res = pm.response.json()\r",
+                            "const exp = pm.collectionVariables.get('EXP')\r",
+                            "const offsetValue = Number.parseFloat(pm.collectionVariables.get('OFFSET_VALUE'))\r",
+                            "const limitValue = Number.parseFloat(pm.collectionVariables.get('LIMIT_VALUE'))\r",
+                            "\r",
+                            "pm.test(`Verify Status code is 200 when ${pm.collectionVariables.get('DESC')}`, () => {\r",
+                            "    pm.expect(pm.response.code).to.equal(200)\r",
+                            "})\r",
+                            "\r",
+                            "if (data.error != undefined) {\r",
+                            "    pm.test(`Verify error when ${pm.collectionVariables.get('DESC')}`, () => {\r",
+                            "        pm.expect(res.error.info).to.equal(data.error)\r",
+                            "        pm.expect(res.query).to.be.undefined\r",
+                            "    })\r",
+                            "} else {\r",
+                            "    if (data.warnings != undefined) {\r",
+                            "        pm.test(`Verify warning when ${pm.collectionVariables.get('DESC')}`, () => {\r",
+                            "            pm.expect(res.warnings.search.warnings).to.equal(data.warnings)\r",
+                            "            pm.expect(res.query.search.length).to.be.greaterThan(0)\r",
+                            "        })\r",
+                            "    }\r",
+                            "\r",
+                            "    if(res.query != undefined){\r",
+                            "        const totalhits = Number.parseFloat(res.query.searchinfo.totalhits)\r",
+                            "        if (offsetValue == totalhits - 1) {\r",
+                            "            pm.test(`Verify query.search.length = 1 when ${pm.collectionVariables.get('DESC')}`, () => {\r",
+                            "                pm.expect(res.query.search.length).to.equal(1)\r",
+                            "            })\r",
+                            "        }\r",
+                            "\r",
+                            "        if (offsetValue < 10000 && offsetValue >= totalhits) {\r",
+                            "            pm.test(`Verify query.search.length = 0 when ${pm.collectionVariables.get('DESC')}`, () => {\r",
+                            "                pm.expect(res.query.search.length).to.equal(0)\r",
+                            "            })\r",
+                            "        }\r",
+                            "    }\r",
+                            "\r",
+                            "    if (res.continue != undefined) {\r",
+                            "        const totalhits = Number.parseFloat(res.query.searchinfo.totalhits)\r",
+                            "        pm.test('Verify sroffset value if existing continue property', () => {\r",
+                            "            pm.expect(res.continue.sroffset).to.be.not.null\r",
+                            "            pm.expect(res.continue.sroffset).to.be.lessThan(totalhits)\r",
+                            "            pm.expect(res.query.search.length).to.be.equal(limitValue)\r",
+                            "        })\r",
+                            "\r",
+                            "    } else {\r",
+                            "        pm.test('Verify no continue property', () => {\r",
+                            "            pm.expect(res.continue).to.be.undefined\r",
+                            "            pm.expect(res.query.search.length).to.be.lessThan(limitValue)\r",
+                            "        })\r",
+                            "    }\r",
+                            "}\r",
+                            ""
+                        ],
+                        "type": "text/javascript"
+                    }
+                }
+            ],
+            "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                    "raw": "https://en.wikipedia.org/w/api.php?action=query&format=json&list=search&formatversion=2&srsearch={{SEARCH_STR}}&srnamespace=0&srlimit={{LIMIT_VALUE}}&sroffset={{OFFSET_VALUE}}",
+                    "protocol": "https",
+                    "host": ["en", "wikipedia", "org"],
+                    "path": ["w", "api.php"],
+                    "query": [
+                        {
+                            "key": "action",
+                            "value": "query"
+                        },
+                        {
+                            "key": "format",
+                            "value": "json"
+                        },
+                        {
+                            "key": "list",
+                            "value": "search"
+                        },
+                        {
+                            "key": "formatversion",
+                            "value": "2"
+                        },
+                        {
+                            "key": "srsearch",
+                            "value": "{{SEARCH_STR}}"
+                        },
+                        {
+                            "key": "srnamespace",
+                            "value": "0"
+                        },
+                        {
+                            "key": "srlimit",
+                            "value": "{{LIMIT_VALUE}}"
+                        },
+                        {
+                            "key": "sroffset",
+                            "value": "{{OFFSET_VALUE}}"
+                        }
+                    ]
+                }
+            },
+            "response": []
+        }
+    ],
+    "event": [
+        {
+            "listen": "prerequest",
+            "script": {
+                "type": "text/javascript",
+                "exec": [""]
+            }
+        },
+        {
+            "listen": "test",
+            "script": {
+                "type": "text/javascript",
+                "exec": [""]
+            }
+        }
+    ],
+    "variable": [
+        {
+            "key": "SEARCH_STR",
+            "value": "",
+            "type": "string"
+        },
+        {
+            "key": "OFFSET_VALUE",
+            "value": "",
+            "type": "string"
+        },
+        {
+            "key": "LIMIT_VALUE",
+            "value": "",
+            "type": "string"
+        },
+        {
+            "key": "COUNT",
+            "value": "",
+            "type": "string"
+        },
+        {
+            "key": "OFFSET_PARAM_N",
+            "value": "",
+            "type": "string"
+        },
+        {
+            "key": "SEARCH_PARAM_N",
+            "value": "",
+            "type": "string"
+        },
+        {
+            "key": "WARNS",
+            "value": "",
+            "type": "string"
+        },
+        {
+            "key": "DESC",
+            "value": "",
+            "type": "string"
+        }
+    ]
+}

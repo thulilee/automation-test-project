@@ -1,0 +1,23 @@
+[
+    {
+        "desc": "srsearch is empty",
+        "searchStr": "",
+        "offsetValue": 400,
+        "limitValue": 100,
+        "error": "The \"srsearch\" parameter must be set.",
+        "params": {
+            "srsearch": "srsearch",
+            "sroffset": "sroffset"
+        }
+    },
+    {
+        "desc": "srsearch is all spaces - - no matched result",
+        "searchStr": "     ",
+        "offsetValue": 0,
+        "limitValue": 100,
+        "params": {
+            "srsearch": "srsearch",
+            "sroffset": "sroffset"
+        }
+    }
+]

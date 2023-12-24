@@ -1,21 +1,22 @@
 {
-  "name": "smgtest",
-  "version": "1.0.0",
-  "description": "SMG QC challenges",
-  "main": "index.js",
-  "author": "Linh Le <thuylinhletran101@gmail.com>",
-  "license": "MIT",
-  "scripts": {
-    "test:api": "ts-node src/api/testExecution.ts"
-  },
-  "devDependencies": {
-    "@types/cypress": "^1.1.3",
-    "@types/newman": "^5.3.6",
-    "cypress": "^13.6.1",
-    "cypress-wait-until": "^3.0.1",
-    "newman": "^6.0.0",
-    "newman-reporter-htmlextra": "^1.22.11",
-    "ts-node": "^10.9.2",
-    "typescript": "^5.3.3"
-  }
+    "name": "smgtest",
+    "version": "1.0.0",
+    "description": "SMG QC challenges",
+    "main": "index.js",
+    "author": "Linh Le <thuylinhletran101@gmail.com>",
+    "license": "MIT",
+    "scripts": {
+        "test:api": "ts-node src/api/testExecution.ts",
+        "test:ui": "cypress run"
+    },
+    "devDependencies": {
+        "@types/cypress": "^1.1.3",
+        "@types/newman": "^5.3.6",
+        "cypress": "^13.6.1",
+        "cypress-wait-until": "^3.0.1",
+        "newman": "^6.0.0",
+        "newman-reporter-htmlextra": "^1.22.11",
+        "ts-node": "^10.9.2",
+        "typescript": "^5.3.3"
+    }
 }

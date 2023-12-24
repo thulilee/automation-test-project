@@ -1,0 +1,149 @@
+{
+    "info": {
+        "_postman_id": "ba263d38-0851-42cb-8dce-e7f6c4aab8bc",
+        "name": "Get-wikipedia-search-results-srsearch",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+        "_exporter_id": "16088962"
+    },
+    "item": [
+        {
+            "name": "get-result-list-srsearch",
+            "event": [
+                {
+                    "listen": "prerequest",
+                    "script": {
+                        "exec": [
+                            "let searchStr = data.searchStr\r",
+                            "\r",
+                            "if(searchStr.replace(/\\s/g, \"\").length > 0){\r",
+                            "    pm.collectionVariables.set(\"SEARCH_STR\", encodeURI(searchStr).replaceAll(\"%20\", \"+\"))\r",
+                            "} else {\r",
+                            "    pm.collectionVariables.set(\"SEARCH_STR\", encodeURI(searchStr))\r",
+                            "}\r",
+                            "\r",
+                            "pm.collectionVariables.set(\"OFFSET_VALUE\", data.offsetValue)\r",
+                            "pm.collectionVariables.set(\"LIMIT_VALUE\", data.limitValue)\r",
+                            "pm.collectionVariables.set(\"DESC\", data.desc)\r",
+                            ""
+                        ],
+                        "type": "text/javascript"
+                    }
+                },
+                {
+                    "listen": "test",
+                    "script": {
+                        "exec": [
+                            "const res = pm.response.json();\r",
+                            "const offsetValue = Number.parseFloat(\r",
+                            "  pm.collectionVariables.get(\"OFFSET_VALUE\")\r",
+                            ");\r",
+                            "const search = data.searchStr\r",
+                            "\r",
+                            "pm.test(`Verify Status code is 200 when ${pm.collectionVariables.get(\"DESC\")}`, () => {\r",
+                            "  pm.expect(pm.response.code).to.equal(200);\r",
+                            "});\r",
+                            "\r",
+                            "if (search == \"\") {\r",
+                            "  pm.test(`Verify error when srsearch is empty`, () => {\r",
+                            "    pm.expect(res.error.info).to.equal(data.error);\r",
+                            "    pm.expect(res.query).to.be.undefined;\r",
+                            "  });\r",
+                            "}\r",
+                            "if (search.replace(/\\s/g, \"\").length == 0 && search != \"\") {\r",
+                            "    const totalhits = Number.parseFloat(res.query.searchinfo.totalhits)\r",
+                            "  pm.test(`Verify totalhits when srsearch is all spaces`, () => {\r",
+                            "    pm.expect(totalhits).to.be.equal(0);\r",
+                            "    pm.expect(res.query.search.length).to.be.equal(totalhits);\r",
+                            "  });\r",
+                            "}\r",
+                            ""
+                        ],
+                        "type": "text/javascript"
+                    }
+                }
+            ],
+            "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                    "raw": "https://en.wikipedia.org/w/api.php?action=query&format=json&list=search&formatversion=2&srsearch={{SEARCH_STR}}&srnamespace=0&srlimit={{LIMIT_VALUE}}&sroffset={{OFFSET_VALUE}}",
+                    "protocol": "https",
+                    "host": ["en", "wikipedia", "org"],
+                    "path": ["w", "api.php"],
+                    "query": [
+                        {
+                            "key": "action",
+                            "value": "query"
+                        },
+                        {
+                            "key": "format",
+                            "value": "json"
+                        },
+                        {
+                            "key": "list",
+                            "value": "search"
+                        },
+                        {
+                            "key": "formatversion",
+                            "value": "2"
+                        },
+                        {
+                            "key": "srsearch",
+                            "value": "{{SEARCH_STR}}"
+                        },
+                        {
+                            "key": "srnamespace",
+                            "value": "0"
+                        },
+                        {
+                            "key": "srlimit",
+                            "value": "{{LIMIT_VALUE}}"
+                        },
+                        {
+                            "key": "sroffset",
+                            "value": "{{OFFSET_VALUE}}"
+                        }
+                    ]
+                }
+            },
+            "response": []
+        }
+    ],
+    "event": [
+        {
+            "listen": "prerequest",
+            "script": {
+                "type": "text/javascript",
+                "exec": [""]
+            }
+        },
+        {
+            "listen": "test",
+            "script": {
+                "type": "text/javascript",
+                "exec": [""]
+            }
+        }
+    ],
+    "variable": [
+        {
+            "key": "SEARCH_STR",
+            "value": "",
+            "type": "string"
+        },
+        {
+            "key": "OFFSET_VALUE",
+            "value": "",
+            "type": "string"
+        },
+        {
+            "key": "LIMIT_VALUE",
+            "value": "",
+            "type": "string"
+        },
+        {
+            "key": "DESC",
+            "value": ""
+        }
+    ]
+}

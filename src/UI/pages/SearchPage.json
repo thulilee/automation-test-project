@@ -1,0 +1,5 @@
+{
+    "searchBox": "input[class='cdx-text-input__input']",
+    "searchSpan": "Search for pages containing",
+    "matchedItem": "div[class='searchresult']"
+}

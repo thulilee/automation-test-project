@@ -1,0 +1,22 @@
+[
+    {
+        "searchStr": "Software testing",
+        "offsetValue": 0,
+        "limitValue": 100,
+        "warnings": "Unrecognized parameter: sroffsetTest.",
+        "params": {
+            "srsearch": "srsearch",
+            "sroffset": "sroffsetTest"
+        }
+    },
+    {
+        "searchStr": "Software testing",
+        "offsetValue": 0,
+        "limitValue": 100,
+        "error": "The \"srsearch\" parameter must be set.",
+        "params": {
+            "srsearch": "srsearchTEST",
+            "sroffset": "sroffset"
+        }
+    }
+]
